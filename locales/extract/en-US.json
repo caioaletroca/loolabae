@@ -1,0 +1,11 @@
+{
+  "configuration.languageButton": {
+    "defaultMessage": "Language"
+  },
+  "configuration.title": {
+    "defaultMessage": "Configuration"
+  },
+  "language.title": {
+    "defaultMessage": "Language"
+  }
+}
