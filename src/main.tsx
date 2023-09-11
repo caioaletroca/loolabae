@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { IntlProvider } from 'react-intl';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout from './pages/root.tsx';
-import { TesseractProvider } from './components/Tesseract/Provider.tsx';
+import { TesseractProvider } from './components/Tesseract';
+import { LocalizationProvider } from './components/Localization';
 
 import HomePage from './pages/HomePage';
 import ConfigurationPage from './pages/ConfigurationPage';
+import LanguagePage from './pages/LanguagePage/index.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
 			{
 				path: '/configuration',
 				element: <ConfigurationPage />
+			},
+			{
+				path: '/configuration/language',
+				element: <LanguagePage />
 			}
 		],
 	},
@@ -28,10 +33,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<IntlProvider messages={{}} locale="en" defaultLocale="en">
+		<LocalizationProvider>
 			<TesseractProvider>
 				<RouterProvider router={router} />
 			</TesseractProvider>
-		</IntlProvider>
+		</LocalizationProvider>
 	</React.StrictMode>
 );
