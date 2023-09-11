@@ -1,6 +1,6 @@
 import { languages, useLocalization } from "@/components/Localization";
 import Page from "@/components/Page";
-import Header, { HeaderTitle } from "@/components/Page/Header";
+import Header, { HeaderBack, HeaderTitle } from "@/components/Page/Header";
 import View from "@/components/Page/View";
 import { List, ListItemButton, ListItemText } from "@mui/material";
 import { useIntl } from "react-intl";
@@ -14,6 +14,7 @@ export default function LanguagePage() {
 	return (
 		<Page>
 			<Header>
+				<HeaderBack />
 				<HeaderTitle
 					title={intl.formatMessage({
 						id: 'language.title',

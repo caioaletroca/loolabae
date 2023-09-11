@@ -1,6 +1,6 @@
 import Icon from "@/components/Icon";
 import Page from "@/components/Page";
-import Header, { HeaderTitle } from "@/components/Page/Header";
+import Header, { HeaderBack, HeaderTitle } from "@/components/Page/Header";
 import View from "@/components/Page/View";
 import { IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useIntl } from "react-intl";
@@ -13,14 +13,7 @@ export default function ConfigurationPage() {
 	return (
 		<Page>
 			<Header>
-				<IconButton
-					size="large"
-					edge="start"
-					color="inherit"
-					aria-label="back"
-					onClick={() => navigate(-1)}>
-					<Icon>chevron_left</Icon>
-				</IconButton>
+				<HeaderBack />
 				<HeaderTitle
 					title={intl.formatMessage({
 						id: 'configuration.title',
