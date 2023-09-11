@@ -1,26 +1,23 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import Page from "@/components/Page";
 import View from "@/components/Page/View";
-import openai from "@/services/openai";
-import { useTesseract } from "@/components/Tesseract";
-import React from "react";
 
-const system = `
-	Given the options of places below:
+// const system = `
+// 	Given the options of places below:
 
-	* Church;
-	* River;
-	* Plaza;
-	* Restaurant;
+// 	* Church;
+// 	* River;
+// 	* Plaza;
+// 	* Restaurant;
 
-	Analyze the text on which place the story is happening and return a response as JSON containing all the places, and rating the probability between 0 and 1, where 0 means no probability, and 1 means highest probability.
+// 	Analyze the text on which place the story is happening and return a response as JSON containing all the places, and rating the probability between 0 and 1, where 0 means no probability, and 1 means highest probability.
 
-	Don't answer any other words, just return a JSON.
-`;
+// 	Don't answer any other words, just return a JSON.
+// `;
 
 export default function HomePage() {
-	const [test, setTest] = React.useState();
-	const { text, recognize } = useTesseract();
+	// const [test, setTest] = React.useState();
+	// const { text, recognize } = useTesseract();
 
 	const handleClick = async () => {
 		// const test = "{\n  \"church\": 1,\n  \"river\": 0,\n  \"plaza\": 0,\n  \"restaurant\": 0\n}";
@@ -40,40 +37,40 @@ export default function HomePage() {
 		// console.log(completion.choices);
 	}
 
-	const handleCapture = (e) => {
-		const file = e.target.files[0];
-		recognize(file);
-	}
+	// const handleCapture = (e) => {
+	// 	const file = e.target.files[0];
+	// 	recognize(file);
+	// }
 
-	React.useEffect(() => {
-		const audioContext = new AudioContext();
+	// React.useEffect(() => {
+	// 	const audioContext = new AudioContext();
 
-		// get the audio element
-		const audioElement = document.querySelector("audio");
+	// 	// get the audio element
+	// 	const audioElement = document.querySelector("audio");
 
-		if(text === '' || !audioElement) {
-			return;
-		}
+	// 	if(text === '' || !audioElement) {
+	// 		return;
+	// 	}
 
-		// pass it into the audio context
-		// const track = audioContext.createMediaElementSource(audioElement!);
+	// 	// pass it into the audio context
+	// 	// const track = audioContext.createMediaElementSource(audioElement!);
 
-		setTest(audioElement);
-	}, []);
+	// 	setTest(audioElement);
+	// }, []);
 
-	React.useEffect(() => {
-		console.log(window.speechSynthesis.getVoices());
+	// React.useEffect(() => {
+	// 	console.log(window.speechSynthesis.getVoices());
 
-		const u = new SpeechSynthesisUtterance(text);
-		u.voice = window.speechSynthesis.getVoices()[1];
-		window.speechSynthesis.speak(u);
+	// 	const u = new SpeechSynthesisUtterance(text);
+	// 	u.voice = window.speechSynthesis.getVoices()[1];
+	// 	window.speechSynthesis.speak(u);
 
-		if(!test) {
-			return;
-		}
+	// 	if(!test) {
+	// 		return;
+	// 	}
 		
-		test.play();
-	}, [text]);
+	// 	test.play();
+	// }, [text]);
 
 	return (
 		<Page>
@@ -101,7 +98,7 @@ export default function HomePage() {
 						id="icon-button-file"
 						type="file"
 						capture="environment"
-						onChange={handleCapture}
+						// onChange={handleCapture}
 					/>
 					<label htmlFor="icon-button-file">
 						<IconButton
@@ -112,13 +109,13 @@ export default function HomePage() {
 							<span className='material-symbols-outlined'>menu</span>
 						</IconButton>
 					</label>
-					<p>{text}</p>
+					{/* <p>{text}</p> */}
 					<Button onClick={handleClick}>
 						Execute
 					</Button>
-					<Button onClick={() => test.play()}>
+					{/* <Button onClick={() => test.play()}>
 						Play
-					</Button>
+					</Button> */}
 				</div>
 			</View>
 		</Page>

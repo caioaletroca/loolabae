@@ -1,4 +1,5 @@
 {
+	"extends": "../tsconfig.json",
   "compilerOptions": {
 		"baseUrl": "./",
     "target": "ES2020",
@@ -20,6 +21,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+
+		"paths": {
+			"@/*": ["./src/*"]
+		}
   },
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src"]
 }

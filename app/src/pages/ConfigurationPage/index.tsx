@@ -2,7 +2,7 @@ import Icon from "@/components/Icon";
 import Page from "@/components/Page";
 import Header, { HeaderBack, HeaderTitle } from "@/components/Page/Header";
 import View from "@/components/Page/View";
-import { IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 
