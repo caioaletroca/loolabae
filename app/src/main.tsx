@@ -21,12 +21,12 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/configuration',
-				element: <ConfigurationPage />
+				element: <ConfigurationPage />,
 			},
 			{
 				path: '/configuration/language',
-				element: <LanguagePage />
-			}
+				element: <LanguagePage />,
+			},
 		],
 	},
 ]);

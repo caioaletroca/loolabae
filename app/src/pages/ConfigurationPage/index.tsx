@@ -1,10 +1,15 @@
-import Icon from "@/components/Icon";
-import Page from "@/components/Page";
-import Header, { HeaderBack, HeaderTitle } from "@/components/Page/Header";
-import View from "@/components/Page/View";
-import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import Icon from '@/components/Icon';
+import Page from '@/components/Page';
+import Header, { HeaderBack, HeaderTitle } from '@/components/Page/Header';
+import View from '@/components/Page/View';
+import {
+	List,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+} from '@mui/material';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
 
 export default function ConfigurationPage() {
 	const intl = useIntl();
@@ -17,7 +22,7 @@ export default function ConfigurationPage() {
 				<HeaderTitle
 					title={intl.formatMessage({
 						id: 'configuration.title',
-						defaultMessage: "Configuration"
+						defaultMessage: 'Configuration',
 					})}
 				/>
 			</Header>
@@ -29,8 +34,8 @@ export default function ConfigurationPage() {
 						</ListItemIcon>
 						<ListItemText
 							primary={intl.formatMessage({
-								id: "configuration.languageButton",
-								defaultMessage: "Language"
+								id: 'configuration.languageButton',
+								defaultMessage: 'Language',
 							})}
 						/>
 					</ListItemButton>
@@ -40,13 +45,13 @@ export default function ConfigurationPage() {
 						</ListItemIcon>
 						<ListItemText
 							primary={intl.formatMessage({
-								id: "configuration.languageButton",
-								defaultMessage: "Language"
+								id: 'configuration.languageButton',
+								defaultMessage: 'Language',
 							})}
 						/>
 					</ListItemButton>
 				</List>
 			</View>
 		</Page>
-	)
+	);
 }

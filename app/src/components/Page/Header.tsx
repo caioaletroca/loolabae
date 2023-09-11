@@ -1,31 +1,25 @@
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import Icon from "../Icon";
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Icon from '../Icon';
 
 export type HeaderTitleProps = {
 	title?: string;
-}
+};
 
-export function HeaderTitle({
-	title
-}: HeaderTitleProps) {
+export function HeaderTitle({ title }: HeaderTitleProps) {
 	return (
-		<Typography
-			variant="h6"
-			component="div">
+		<Typography variant="h6" component="div">
 			{title}
 		</Typography>
-	)
+	);
 }
 
 export type HeaderBackProps = {
-	onBack?: () => void
-}
+	onBack?: () => void;
+};
 
-export function HeaderBack({
-	onBack
-}: HeaderBackProps) {
+export function HeaderBack({ onBack }: HeaderBackProps) {
 	const navigate = useNavigate();
 
 	const handleBack = () => navigate(-1);
@@ -42,11 +36,9 @@ export function HeaderBack({
 	);
 }
 
-export default function Header({
-	children
-}: React.PropsWithChildren) {
+export default function Header({ children }: React.PropsWithChildren) {
 	return (
-		<AppBar position='static'>
+		<AppBar position="static">
 			<Toolbar>
 				{children}
 				{/* <IconButton
@@ -63,5 +55,5 @@ export default function Header({
 				</Typography> */}
 			</Toolbar>
 		</AppBar>
-	)
+	);
 }

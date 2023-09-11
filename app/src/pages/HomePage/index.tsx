@@ -1,6 +1,6 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
-import Page from "@/components/Page";
-import View from "@/components/Page/View";
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import Page from '@/components/Page';
+import View from '@/components/Page/View';
 
 // const system = `
 // 	Given the options of places below:
@@ -21,7 +21,6 @@ export default function HomePage() {
 
 	const handleClick = async () => {
 		// const test = "{\n  \"church\": 1,\n  \"river\": 0,\n  \"plaza\": 0,\n  \"restaurant\": 0\n}";
-
 		// console.log(JSON.parse(test));
 		// const completion = await openai.chat.completions.create({
 		// 	messages: [
@@ -31,11 +30,10 @@ export default function HomePage() {
 		// 		},
 		// 		{ role: 'user', content: 'Since I was sad, I decided to pray.' }
 		// 	],
-    // 	model: 'gpt-3.5-turbo',
+		// 	model: 'gpt-3.5-turbo',
 		// });
-
 		// console.log(completion.choices);
-	}
+	};
 
 	// const handleCapture = (e) => {
 	// 	const file = e.target.files[0];
@@ -68,31 +66,29 @@ export default function HomePage() {
 	// 	if(!test) {
 	// 		return;
 	// 	}
-		
+
 	// 	test.play();
 	// }, [text]);
 
 	return (
 		<Page>
-			<AppBar position='static'>
+			<AppBar position="static">
 				<Toolbar>
 					<IconButton
 						size="large"
 						edge="start"
 						color="inherit"
 						aria-label="menu">
-						<span className='material-symbols-outlined'>menu</span>
+						<span className="material-symbols-outlined">menu</span>
 					</IconButton>
-					<Typography 
-						variant="h6"
-						component="div">
+					<Typography variant="h6" component="div">
 						Test
 					</Typography>
 				</Toolbar>
 			</AppBar>
 			<audio src="./test.mp3"></audio>
 			<View>
-				<div className='flex flex-col flex-1'>
+				<div className="flex flex-col flex-1">
 					<input
 						accept="image/*"
 						id="icon-button-file"
@@ -104,15 +100,12 @@ export default function HomePage() {
 						<IconButton
 							color="primary"
 							aria-label="upload picture"
-							component="span"
-						>
-							<span className='material-symbols-outlined'>menu</span>
+							component="span">
+							<span className="material-symbols-outlined">menu</span>
 						</IconButton>
 					</label>
 					{/* <p>{text}</p> */}
-					<Button onClick={handleClick}>
-						Execute
-					</Button>
+					<Button onClick={handleClick}>Execute</Button>
 					{/* <Button onClick={() => test.play()}>
 						Play
 					</Button> */}

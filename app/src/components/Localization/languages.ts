@@ -14,7 +14,7 @@ const languages = [
 			id: 'language.portuguese',
 			defaultMessage: 'Portuguese',
 		},
-	}
+	},
 ];
 
 export type Language = typeof languages extends readonly (infer ElementType)[]
