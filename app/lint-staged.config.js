@@ -10,5 +10,5 @@
 // 	`git add ${filenames.map((f) => path.relative(process.cwd(), f)).join('')}`;
 
 export default {
-	'*.{js,jsx,ts,tsx}': ["eslint --fix --file"],
+	'*.{js,jsx,ts,tsx}': ['eslint --fix', 'prettier --write'],
 };
