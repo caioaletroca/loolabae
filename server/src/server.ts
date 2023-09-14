@@ -1,6 +1,7 @@
 import path from 'path';
 import dotenv from 'dotenv';
 import express, { Request, Response, Router } from "express";
+import cors from 'cors';
 import postAnalyze from './analyze';
 import multer from "multer";
 import { startTesseract } from './tesseract/worker';
@@ -14,6 +15,7 @@ const app = express();
 const router = Router();
 
 app.use(express.json());
+app.use(cors());
 
 router.get('/api', (_req: Request, res: Response) => {
 	return res.send({ message: 'Hello World!!!' });

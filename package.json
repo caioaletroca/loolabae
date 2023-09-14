@@ -1,7 +1,6 @@
 {
 	"name": "loolabae",
 	"scripts": {
-		"dev": "npm run dev -ws",
 		"build": "npm run build -ws",
 		"lint": "npm run lint -ws",
 		"prettier": "npm run prettier -ws",

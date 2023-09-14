@@ -1,6 +1,7 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
 import Page from '@/components/Page';
 import View from '@/components/Page/View';
+import api from '@/api';
 
 // const system = `
 // 	Given the options of places below:
@@ -35,10 +36,14 @@ export default function HomePage() {
 		// console.log(completion.choices);
 	};
 
-	// const handleCapture = (e) => {
-	// 	const file = e.target.files[0];
-	// 	recognize(file);
-	// }
+	const handleCapture = async (e) => {
+		const file = e.target.files[0];
+		const formData = new FormData();
+		formData.set('language', 'eng');
+		formData.set('image', file);
+		const { data } = await api.post('/api/analyze', formData);
+		console.log(data);
+	};
 
 	// React.useEffect(() => {
 	// 	const audioContext = new AudioContext();
@@ -94,7 +99,7 @@ export default function HomePage() {
 						id="icon-button-file"
 						type="file"
 						capture="environment"
-						// onChange={handleCapture}
+						onChange={handleCapture}
 					/>
 					<label htmlFor="icon-button-file">
 						<IconButton
