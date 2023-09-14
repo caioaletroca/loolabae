@@ -9,12 +9,12 @@ export const LocalizationContext = React.createContext<{
 });
 
 export function LocalizationProvider({ children }: React.PropsWithChildren) {
-	const [locale, setLocale] = React.useState('en');
+	const [locale, setLocale] = React.useState('en-US');
 	const [messages, setMessages] = React.useState(enMessages);
 
 	React.useEffect(() => {
 		(async () => {
-			const defaultLocale = localStorage.getItem('locale') ?? 'en';
+			const defaultLocale = localStorage.getItem('locale') ?? 'en-US';
 			setLocale(defaultLocale);
 
 			await loadLanguage(defaultLocale);
@@ -22,8 +22,9 @@ export function LocalizationProvider({ children }: React.PropsWithChildren) {
 	}, []);
 
 	const loadLanguage = async (locale: string) => {
-		const module = await import(`../../../locales/compiled/${locale}.json`);
-		setMessages(module.default);
+		const response = await fetch(`/locales/compiled/${locale}.json`);
+		const messages = await response.json();
+		setMessages(messages);
 	};
 
 	const set = async (loc: string) => {
