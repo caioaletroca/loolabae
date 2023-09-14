@@ -26,3 +26,4 @@ dev-dist
 
 # Env files
 .env
+.env.production

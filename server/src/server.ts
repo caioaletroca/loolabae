@@ -7,7 +7,7 @@ import multer from "multer";
 import { startTesseract } from './tesseract/worker';
 
 dotenv.config({
-	path: path.resolve(process.cwd(), '..', '.env')
+	path: path.resolve(process.cwd(), '.env')
 })
 
 const app = express();
@@ -18,15 +18,15 @@ app.use(express.json());
 app.use(cors());
 
 router.get('/api', (_req: Request, res: Response) => {
-	return res.send({ message: 'Hello World!!!' });
+	return res.json({ message: 'Hello World!!!' });
 });
 
 router.post('/api/analyze', multer().single('image'), postAnalyze);
 
 app.use(router);
 
-app.listen(process.env.API_PORT, async () => {
+app.listen(process.env.PORT, async () => {
 	await startTesseract();
 	
-	console.log(`Server is running [${process.env.API_PORT}]`);
+	console.log(`Server is running [${process.env.PORT}]`);
 });

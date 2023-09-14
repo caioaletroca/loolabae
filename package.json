@@ -4,7 +4,9 @@
 		"build": "npm run build -ws",
 		"lint": "npm run lint -ws",
 		"prettier": "npm run prettier -ws",
-		"deploy": "npm run build & gcloud app deploy app/app.yaml server/app.yaml",
+		"deploy": "npm run build && gcloud app deploy app/app.yaml server/app.yaml",
+		"deploy:front": "npm run build -w app && gcloud app deploy app/app.yaml",
+		"deploy:server": "npm run build -w server && gcloud app deploy server/app.yaml",
 		"prepare": "husky install"
 	},
 	"workspaces": [
