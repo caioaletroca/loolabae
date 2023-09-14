@@ -1,6 +1,6 @@
 import path from 'path';
 import dotenv from 'dotenv';
-import express, { Router } from "express";
+import express, { Request, Response, Router } from "express";
 import postAnalyze from './analyze';
 import multer from "multer";
 import { startTesseract } from './tesseract/worker';
@@ -14,6 +14,10 @@ const app = express();
 const router = Router();
 
 app.use(express.json());
+
+router.get('/api', (_req: Request, res: Response) => {
+	return res.send({ message: 'Hello World!!!' });
+});
 
 router.post('/api/analyze', multer().single('image'), postAnalyze);
 

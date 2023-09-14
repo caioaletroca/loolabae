@@ -2,8 +2,10 @@
 	"name": "loolabae",
 	"scripts": {
 		"dev": "npm run dev -ws",
+		"build": "npm run build -ws",
 		"lint": "npm run lint -ws",
 		"prettier": "npm run prettier -ws",
+		"deploy": "npm run build & gcloud app deploy app/app.yaml server/app.yaml",
 		"prepare": "husky install"
 	},
 	"workspaces": [
