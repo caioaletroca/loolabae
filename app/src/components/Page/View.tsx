@@ -7,7 +7,7 @@ export default function View({
 }: React.HTMLProps<HTMLDivElement>) {
 	return (
 		<div
-			className={classNames('flex flex-col flex-1', className)}
+			className={classNames('flex flex-col flex-1 overflow-y-auto', className)}
 			{...others}
 		/>
 	);

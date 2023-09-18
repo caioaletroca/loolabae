@@ -39,6 +39,17 @@ export default function ConfigurationPage() {
 							})}
 						/>
 					</ListItemButton>
+					<ListItemButton onClick={() => navigate('/configuration/voice')}>
+						<ListItemIcon>
+							<Icon>voice_selection</Icon>
+						</ListItemIcon>
+						<ListItemText
+							primary={intl.formatMessage({
+								id: 'configuration.voiceButton',
+								defaultMessage: 'Voice Selection',
+							})}
+						/>
+					</ListItemButton>
 					<ListItemButton>
 						<ListItemIcon>
 							<Icon>language</Icon>

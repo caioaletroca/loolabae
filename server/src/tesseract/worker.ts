@@ -7,6 +7,10 @@ export async function startTesseract() {
 }
 
 export async function recognize(lang: string, file: Buffer) {
+	if(!worker) {
+		await startTesseract();
+	}
+	
 	await worker.loadLanguage(lang);
 	await worker.initialize(lang);
 

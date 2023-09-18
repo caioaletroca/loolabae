@@ -36,7 +36,8 @@ export default function HomePage() {
 		// console.log(completion.choices);
 	};
 
-	const handleCapture = async (e) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleCapture = async (e: any) => {
 		const file = e.target.files[0];
 		const formData = new FormData();
 		formData.set('language', 'eng');
