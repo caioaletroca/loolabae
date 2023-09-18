@@ -41,10 +41,12 @@ function parseResponse(response?: string | null) {
 }
 
 export async function analyzeContext(text: string): Promise<ContextWeighted[]> {
-	return contexts.map(c => ({
-		...c,
-		value: 1
-	}))
+	return contexts
+		.filter(c => c.type === 'after')
+		.map(c => ({
+			...c,
+			value: 1
+		}))
 	// const completion = await openai.chat.completions.create({
 	// 	messages: [
 	// 		{

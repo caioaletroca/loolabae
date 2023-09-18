@@ -1,4 +1,5 @@
 const contexts = [
+	// Background
 	{
 		name: "church",
 		type: "after"
@@ -6,6 +7,44 @@ const contexts = [
 	{
 		name: "rain",
 		type: "during"
+	},
+	{
+		name: "mall",
+		type: "during"
+	},
+	{
+		name: "restaurant",
+		type: "during"
+	},
+	{
+		name: "cooking",
+		type: "during"
+	},
+
+	// Effects
+	{
+		name: "cat",
+		type: "after"
+	},
+	// {
+	// 	name: "dog",
+	// 	type: "after"
+	// },
+	{
+		name: "cow",
+		type: "after"
+	},
+	{
+		name: "horse",
+		type: "after"
+	},
+	{
+		name: "pig",
+		type: "after"
+	},
+	{
+		name: "lion",
+		type: "after"
 	},
 ]
 

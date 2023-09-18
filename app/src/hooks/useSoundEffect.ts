@@ -57,7 +57,7 @@ export default function useSoundEffect({
 			instance.play();
 			instance.fade(0, volume, fade);
 		});
-		console.log(s);
+
 		_setSounds(s);
 	};
 
@@ -89,7 +89,7 @@ export default function useSoundEffect({
 		Object.values(sounds.current).map((instance) => {
 			instance.fade(volume, 0, fade);
 		});
-	}, [volume]);
+	}, [fade, volume]);
 
 	return {
 		sounds,
