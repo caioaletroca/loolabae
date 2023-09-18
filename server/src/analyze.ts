@@ -14,11 +14,7 @@ export default async function postAnalyze(req: Request, res: Response) {
 
 	const contexts = await analyzeContext(text);
 
-	const filteredContexts = Object.keys(contexts).filter(name => {
-		if(contexts[name] >= threshold) {
-			return name;
-		}
-	});
+	const filteredContexts = contexts.filter(context => context.value >= threshold);
 	
 	return ApiResponse(res).send({
 		text,

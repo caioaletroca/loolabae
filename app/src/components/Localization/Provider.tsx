@@ -38,7 +38,9 @@ export function LocalizationProvider({ children }: React.PropsWithChildren) {
 			key={locale}
 			locale={locale}
 			defaultLocale="en"
-			messages={messages}>
+			messages={messages}
+			// TODO: Remove this
+			onError={() => {}}>
 			<LocalizationContext.Provider
 				value={{
 					setLocale: set,

@@ -1,11 +1,27 @@
-export default function useSpeechSynthesis() {
+import React from 'react';
+
+type UseSpeechSynthesisProps = {
+	rate?: number;
+	onEnd?: () => void;
+};
+
+export default function useSpeechSynthesis({
+	rate = 0.8,
+	onEnd,
+}: UseSpeechSynthesisProps = {}) {
 	const options = window.speechSynthesis.getVoices();
 
-	const speak = (text: string) => {
-		const u = new SpeechSynthesisUtterance(text);
+	const utterance = React.useMemo(() => {
+		const u = new SpeechSynthesisUtterance();
 		u.voice = window.speechSynthesis.getVoices()[1];
-		u.rate = 0.7;
-		window.speechSynthesis.speak(u);
+		u.rate = rate;
+		u.addEventListener('end', () => onEnd?.());
+		return u;
+	}, [onEnd, rate]);
+
+	const speak = (text: string) => {
+		utterance.text = text;
+		window.speechSynthesis.speak(utterance);
 	};
 
 	return {

@@ -1,5 +1,6 @@
 import useSWRMutation from 'swr/mutation';
 import { postFormDataFetcher } from '.';
+import { ContextWeighted } from 'core';
 
 type Response<T = unknown> = {
 	data: T;
@@ -16,7 +17,7 @@ type AnalyzeArgs = {
 
 type AnalyzeResponse = {
 	text: string;
-	context: string[];
+	context: ContextWeighted[];
 };
 
 export function useAnalyze(

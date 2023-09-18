@@ -3,6 +3,8 @@ import { Howl } from 'howler';
 
 type UseSoundEffectProps = {
 	baseUrl?: string;
+	volume?: number;
+	fade?: number;
 };
 
 type SoundCache = {
@@ -11,21 +13,27 @@ type SoundCache = {
 
 export default function useSoundEffect({
 	baseUrl = '/sounds',
+	volume = 0.4,
+	fade = 500,
 }: UseSoundEffectProps = {}) {
-	const [sounds, _setSounds] = React.useState<SoundCache>({});
+	const sounds = React.useRef<SoundCache>({});
+
+	const _setSounds = (s: SoundCache) => {
+		sounds.current = s;
+	};
 
 	const load = (name: string) => {
 		return new Howl({
-			src: [baseUrl + '/' + name + '.mp3'],
-			volume: 0.4,
+			src: [`${baseUrl}/${name}.mp3`],
+			volume,
 		});
 	};
 
 	const loadSounds = (names: string[]): SoundCache => {
-		const cache = { ...sounds };
+		const cache = { ...sounds.current };
 
 		return names.reduce((sum, name) => {
-			if (!(name in sounds)) {
+			if (!(name in cache)) {
 				return {
 					...sum,
 					[name]: load(name),
@@ -39,13 +47,54 @@ export default function useSoundEffect({
 		}, {});
 	};
 
-	const play = (names: string[]) => {
+	const playBackground = (names: string[]) => {
+		if (names.length === 0) {
+			return;
+		}
+
 		const s = loadSounds(names);
-		s[names[0]].play();
+		Object.values(s).map((instance) => {
+			instance.play();
+			instance.fade(0, volume, fade);
+		});
+		console.log(s);
 		_setSounds(s);
 	};
 
+	const playSequence = (names: string[]) => {
+		if (names.length === 0) {
+			return;
+		}
+
+		const s = loadSounds(names);
+
+		const _next = (instance: Howl) => {
+			instance.play();
+		};
+
+		const instances = Object.values(s);
+		for (let i = 0; i < instances.length; i++) {
+			if (i === instances.length - 1) {
+				continue;
+			}
+
+			instances[i].once('end', () => _next(instances[i + 1]));
+		}
+
+		instances[0].play();
+		_setSounds(s);
+	};
+
+	const stop = React.useCallback(() => {
+		Object.values(sounds.current).map((instance) => {
+			instance.fade(volume, 0, fade);
+		});
+	}, [volume]);
+
 	return {
-		play,
+		sounds,
+		playSequence,
+		playBackground,
+		stop,
 	};
 }

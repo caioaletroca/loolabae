@@ -3,30 +3,21 @@ import Page from '@/components/Page';
 import View from '@/components/Page/View';
 import { useAnalyze } from '@/api/analyze';
 import ImageCapture from './ImageCapture';
-import useSpeechSynthesis from '@/hooks/useSpeechSynthesis';
-import useSoundEffect from '@/hooks/useSoundEffect';
+import useControl from '@/hooks/useControl';
 
 export default function HomePage() {
-	const { play } = useSoundEffect();
-	const { speak } = useSpeechSynthesis();
-	const { data: analyzeData, trigger } = useAnalyze({
+	const { reproduce } = useControl();
+	const { trigger } = useAnalyze({
 		onSuccess: ({ data }) => {
-			reproduce(data.text);
-			play(data.context);
+			reproduce(data.text, data.context);
 		},
 	});
-
-	const handleClick = async () => {};
 
 	const handleChange = async (file: File) => {
 		trigger({
 			language: 'eng',
 			image: file,
 		});
-	};
-
-	const reproduce = async (text: string) => {
-		speak(text);
 	};
 
 	return (
@@ -45,7 +36,6 @@ export default function HomePage() {
 					</Typography>
 				</Toolbar>
 			</AppBar>
-			<audio src="./test.mp3"></audio>
 			<View>
 				<ImageCapture onChange={handleChange} />
 			</View>

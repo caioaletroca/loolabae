@@ -1,4 +1,4 @@
-import { contexts } from 'core';
+import { ContextWeighted, contexts, getFilteredContexts } from 'core';
 import OpenAI from 'openai';
 
 export const openai = new OpenAI({
@@ -25,35 +25,40 @@ function systemMessage() {
 function parseResponse(response?: string | null) {
 	try {
 		if(!response) {
-			return {};
+			return [];
 		}
 
-		return JSON.parse(response);
+		const values = JSON.parse(response) as { [name: string]: number };
+
+		return getFilteredContexts(Object.keys(values)).map(c => ({
+			...c,
+			value: values[c.name]
+		}));
 	}
 	catch(e) {
-		return {};
+		return [];
 	}
 }
 
-type AnalyzeContextResponse = {
-	[name: string]: number;
-}
+export async function analyzeContext(text: string): Promise<ContextWeighted[]> {
+	return contexts.map(c => ({
+		...c,
+		value: 1
+	}))
+	// const completion = await openai.chat.completions.create({
+	// 	messages: [
+	// 		{
+	// 			role: 'system',
+	// 			content: systemMessage()
+	// 		},
+	// 		{ role: 'user', content: text }
+	// 	],
+	// 	model: process.env.OPENAI_MODEL || "gpt-3.5-turbo",
+	// });
 
-export async function analyzeContext(text: string): Promise<AnalyzeContextResponse> {
-	const completion = await openai.chat.completions.create({
-		messages: [
-			{
-				role: 'system',
-				content: systemMessage()
-			},
-			{ role: 'user', content: text }
-		],
-		model: process.env.OPENAI_MODEL || "gpt-3.5-turbo",
-	});
+	// if(completion.choices.length === 0) {
+	// 	return [];
+	// }
 
-	if(completion.choices.length === 0) {
-		return {};
-	}
-
-	return parseResponse(completion.choices[0].message.content);
+	// return parseResponse(completion.choices[0].message.content);
 }
