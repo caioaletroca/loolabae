@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { recognize } from './tesseract/worker';
+import ApiResponse from './util/response';
 
 export default async function postAnalyze(req: Request, res: Response) {
 	if(!req.file) {
@@ -8,5 +9,10 @@ export default async function postAnalyze(req: Request, res: Response) {
 	
 	const { data: { text } } = await recognize(req.body.language, req.file.buffer);
 	
-	return res.json({ text });
+	return ApiResponse(res).send({
+		text,
+		context: [
+			"church"
+		]
+	});
 }
