@@ -2,13 +2,14 @@ import path from 'path';
 import dotenv from 'dotenv';
 import express, { Request, Response, Router } from "express";
 import cors from 'cors';
-import postAnalyze from './analyze';
 import multer from "multer";
 import { startTesseract } from './tesseract/worker';
 
 dotenv.config({
 	path: path.resolve(process.cwd(), '.env')
-})
+});
+
+import postAnalyze from './analyze';
 
 const app = express();
 

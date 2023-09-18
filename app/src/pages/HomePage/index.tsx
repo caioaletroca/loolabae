@@ -2,23 +2,9 @@ import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import Page from '@/components/Page';
 import View from '@/components/Page/View';
 import { useAnalyze } from '@/api/analyze';
-import 'react-html5-camera-photo/build/css/index.css';
 import ImageCapture from './ImageCapture';
 import useSpeechSynthesis from '@/hooks/useSpeechSynthesis';
 import useSoundEffect from '@/hooks/useSoundEffect';
-
-// const system = `
-// 	Given the options of places below:
-
-// 	* Church;
-// 	* River;
-// 	* Plaza;
-// 	* Restaurant;
-
-// 	Analyze the text on which place the story is happening and return a response as JSON containing all the places, and rating the probability between 0 and 1, where 0 means no probability, and 1 means highest probability.
-
-// 	Don't answer any other words, just return a JSON.
-// `;
 
 export default function HomePage() {
 	const { play } = useSoundEffect();
@@ -30,21 +16,7 @@ export default function HomePage() {
 		},
 	});
 
-	const handleClick = async () => {
-		// const test = "{\n  \"church\": 1,\n  \"river\": 0,\n  \"plaza\": 0,\n  \"restaurant\": 0\n}";
-		// console.log(JSON.parse(test));
-		// const completion = await openai.chat.completions.create({
-		// 	messages: [
-		// 		{
-		// 			role: 'system',
-		// 			content: system
-		// 		},
-		// 		{ role: 'user', content: 'Since I was sad, I decided to pray.' }
-		// 	],
-		// 	model: 'gpt-3.5-turbo',
-		// });
-		// console.log(completion.choices);
-	};
+	const handleClick = async () => {};
 
 	const handleChange = async (file: File) => {
 		trigger({
