@@ -1,7 +1,11 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import Page from '@/components/Page';
 import View from '@/components/Page/View';
-import api from '@/api';
+import { useAnalyze } from '@/api/analyze';
+import 'react-html5-camera-photo/build/css/index.css';
+import ImageCapture from './ImageCapture';
+import useSpeechSynthesis from '@/hooks/useSpeechSynthesis';
+import useSoundEffect from '@/hooks/useSoundEffect';
 
 // const system = `
 // 	Given the options of places below:
@@ -17,8 +21,14 @@ import api from '@/api';
 // `;
 
 export default function HomePage() {
-	// const [test, setTest] = React.useState();
-	// const { text, recognize } = useTesseract();
+	const { play } = useSoundEffect();
+	const { speak } = useSpeechSynthesis();
+	const { data: analyzeData, trigger } = useAnalyze({
+		onSuccess: ({ data }) => {
+			reproduce(data.text);
+			play(data.context);
+		},
+	});
 
 	const handleClick = async () => {
 		// const test = "{\n  \"church\": 1,\n  \"river\": 0,\n  \"plaza\": 0,\n  \"restaurant\": 0\n}";
@@ -36,45 +46,16 @@ export default function HomePage() {
 		// console.log(completion.choices);
 	};
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const handleCapture = async (e: any) => {
-		const file = e.target.files[0];
-		const formData = new FormData();
-		formData.set('language', 'eng');
-		formData.set('image', file);
-		const { data } = await api.post('/api/analyze', formData);
-		console.log(data);
+	const handleChange = async (file: File) => {
+		trigger({
+			language: 'eng',
+			image: file,
+		});
 	};
 
-	// React.useEffect(() => {
-	// 	const audioContext = new AudioContext();
-
-	// 	// get the audio element
-	// 	const audioElement = document.querySelector("audio");
-
-	// 	if(text === '' || !audioElement) {
-	// 		return;
-	// 	}
-
-	// 	// pass it into the audio context
-	// 	// const track = audioContext.createMediaElementSource(audioElement!);
-
-	// 	setTest(audioElement);
-	// }, []);
-
-	// React.useEffect(() => {
-	// 	console.log(window.speechSynthesis.getVoices());
-
-	// 	const u = new SpeechSynthesisUtterance(text);
-	// 	u.voice = window.speechSynthesis.getVoices()[1];
-	// 	window.speechSynthesis.speak(u);
-
-	// 	if(!test) {
-	// 		return;
-	// 	}
-
-	// 	test.play();
-	// }, [text]);
+	const reproduce = async (text: string) => {
+		speak(text);
+	};
 
 	return (
 		<Page>
@@ -94,28 +75,7 @@ export default function HomePage() {
 			</AppBar>
 			<audio src="./test.mp3"></audio>
 			<View>
-				<div className="flex flex-col flex-1">
-					<input
-						accept="image/*"
-						id="icon-button-file"
-						type="file"
-						capture="environment"
-						onChange={handleCapture}
-					/>
-					<label htmlFor="icon-button-file">
-						<IconButton
-							color="primary"
-							aria-label="upload picture"
-							component="span">
-							<span className="material-symbols-outlined">menu</span>
-						</IconButton>
-					</label>
-					{/* <p>{text}</p> */}
-					<Button onClick={handleClick}>Execute</Button>
-					{/* <Button onClick={() => test.play()}>
-						Play
-					</Button> */}
-				</div>
+				<ImageCapture onChange={handleChange} />
 			</View>
 		</Page>
 	);
