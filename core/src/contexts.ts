@@ -1,10 +1,6 @@
 const contexts = [
 	// Background
 	{
-		name: "church",
-		type: "after"
-	},
-	{
 		name: "rain",
 		type: "during"
 	},
@@ -13,23 +9,47 @@ const contexts = [
 		type: "during"
 	},
 	{
+		name: "apartment",
+		type: "during"
+	},
+	{
 		name: "restaurant",
+		type: "during"
+	},
+	{
+		name: "city square",
+		type: "during"
+	},
+	{
+		name: "school",
 		type: "during"
 	},
 	{
 		name: "cooking",
 		type: "during"
 	},
+	{
+		name: "forest",
+		type: "during"
+	},
 
-	// Effects
+	// Effects Animals
 	{
 		name: "cat",
 		type: "after"
 	},
-	// {
-	// 	name: "dog",
-	// 	type: "after"
-	// },
+	{
+		name: "dog",
+		type: "after"
+	},
+	{
+		name: "chicken",
+		type: "after"
+	},
+	{
+		name: "duck",
+		type: "after"
+	},
 	{
 		name: "cow",
 		type: "after"
@@ -43,7 +63,21 @@ const contexts = [
 		type: "after"
 	},
 	{
+		name: "toad",
+		type: "after"
+	},
+	{
 		name: "lion",
+		type: "after"
+	},
+
+	// Effects Misc
+	{
+		name: "school break",
+		type: "after"
+	},
+	{
+		name: "church bell",
 		type: "after"
 	},
 ]
