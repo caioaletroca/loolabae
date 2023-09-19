@@ -2,10 +2,34 @@
   "configuration.languageButton": {
     "defaultMessage": "Language"
   },
+  "configuration.themeButton": {
+    "defaultMessage": "Theme"
+  },
   "configuration.title": {
     "defaultMessage": "Configuration"
   },
+  "configuration.voiceButton": {
+    "defaultMessage": "Voice Selection"
+  },
+  "imageCapture.label": {
+    "defaultMessage": "Tap to take a photo"
+  },
   "language.title": {
     "defaultMessage": "Language"
+  },
+  "theme.darkButton": {
+    "defaultMessage": "Dark Mode"
+  },
+  "theme.lightButton": {
+    "defaultMessage": "Light Mode"
+  },
+  "theme.systemButton": {
+    "defaultMessage": "System Default"
+  },
+  "theme.title": {
+    "defaultMessage": "Theme"
+  },
+  "voice.title": {
+    "defaultMessage": "Voice"
   }
 }

@@ -1,5 +1,13 @@
 {
   "configuration.languageButton": "Language",
+  "configuration.themeButton": "Theme",
   "configuration.title": "Configuration",
-  "language.title": "Language"
+  "configuration.voiceButton": "Voice Selection",
+  "imageCapture.label": "Tap to take a photo",
+  "language.title": "Language",
+  "theme.darkButton": "Dark Mode",
+  "theme.lightButton": "Light Mode",
+  "theme.systemButton": "System Default",
+  "theme.title": "Theme",
+  "voice.title": "Voice"
 }
