@@ -1,6 +1,7 @@
 import Page from '@/components/Page';
 import Header, { HeaderBack, HeaderTitle } from '@/components/Page/Header';
 import View from '@/components/Page/View';
+import { useSettings } from '@/components/Settings';
 import useSpeechSynthesis from '@/hooks/useSpeechSynthesis';
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useIntl } from 'react-intl';
@@ -10,9 +11,10 @@ export default function VoicePage() {
 	const intl = useIntl();
 	const navigate = useNavigate();
 	const { options } = useSpeechSynthesis();
+	const { voice, setSettings } = useSettings();
 
 	const handleSelect = (option: SpeechSynthesisVoice) => {
-		console.log(option);
+		setSettings({ voice: option });
 		navigate(-1);
 	};
 
@@ -30,7 +32,10 @@ export default function VoicePage() {
 			<View>
 				<List>
 					{options.map((option, index) => (
-						<ListItemButton key={index} onClick={() => handleSelect(option)}>
+						<ListItemButton
+							key={index}
+							selected={voice === option}
+							onClick={() => handleSelect(option)}>
 							<ListItemText primary={option.name} />
 						</ListItemButton>
 					))}

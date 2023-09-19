@@ -1,3 +1,4 @@
+import { useSettings } from '@/components/Settings';
 import React from 'react';
 
 type UseSpeechSynthesisProps = {
@@ -10,14 +11,15 @@ export default function useSpeechSynthesis({
 	onEnd,
 }: UseSpeechSynthesisProps = {}) {
 	const options = window.speechSynthesis.getVoices();
+	const { voice } = useSettings();
 
 	const utterance = React.useMemo(() => {
 		const u = new SpeechSynthesisUtterance();
-		u.voice = window.speechSynthesis.getVoices()[1];
+		u.voice = voice;
 		u.rate = rate;
 		u.addEventListener('end', () => onEnd?.());
 		return u;
-	}, [onEnd, rate]);
+	}, [onEnd, rate, voice]);
 
 	const speak = (text: string) => {
 		utterance.text = text;

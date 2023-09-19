@@ -4,10 +4,12 @@ export type SettingsTheme = 'light' | 'dark' | 'system';
 
 export type Settings = {
 	theme: SettingsTheme;
+	voice: SpeechSynthesisVoice;
 };
 
 const defaultSettings: Settings = {
 	theme: 'system',
+	voice: window.speechSynthesis.getVoices()[0],
 };
 
 export const SettingsContext = React.createContext<
@@ -24,13 +26,18 @@ export function SettingsProvider({ children }: React.PropsWithChildren) {
 
 	const saveCache = (settings: Settings) => {
 		localStorage.setItem('theme', settings.theme);
+		localStorage.setItem('voice', settings.voice.name);
 	};
 
 	const loadCache = () => {
+		const options = window.speechSynthesis.getVoices();
+		const voiceName = localStorage.getItem('voice');
+
 		return {
 			theme:
 				(localStorage.getItem('theme') as SettingsTheme) ??
 				defaultSettings.theme,
+			voice: options.find((o) => o.name === voiceName) ?? defaultSettings.voice,
 		};
 	};
 
@@ -43,7 +50,8 @@ export function SettingsProvider({ children }: React.PropsWithChildren) {
 	};
 
 	React.useEffect(() => {
-		setSettings(loadCache());
+		_setSettings(loadCache());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

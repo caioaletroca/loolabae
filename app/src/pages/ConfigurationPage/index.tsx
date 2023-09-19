@@ -61,17 +61,6 @@ export default function ConfigurationPage() {
 							})}
 						/>
 					</ListItemButton>
-					<ListItemButton>
-						<ListItemIcon>
-							<Icon>language</Icon>
-						</ListItemIcon>
-						<ListItemText
-							primary={intl.formatMessage({
-								id: 'configuration.languageButton',
-								defaultMessage: 'Language',
-							})}
-						/>
-					</ListItemButton>
 				</List>
 			</View>
 		</Page>
