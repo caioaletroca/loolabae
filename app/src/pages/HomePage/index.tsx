@@ -4,8 +4,12 @@ import View from '@/components/Page/View';
 import { useAnalyze } from '@/api/analyze';
 import ImageCapture from './ImageCapture';
 import useControl from '@/hooks/useControl';
+import { useNavigate } from 'react-router-dom';
+import { useLocalization } from '@/components/Localization';
 
 export default function HomePage() {
+	const { locale } = useLocalization();
+	const navigate = useNavigate();
 	const { reproduce } = useControl();
 	const { trigger } = useAnalyze({
 		onSuccess: ({ data }) => {
@@ -15,7 +19,7 @@ export default function HomePage() {
 
 	const handleChange = async (file: File) => {
 		trigger({
-			language: 'eng',
+			language: locale === 'en-US' ? 'eng' : 'pt',
 			image: file,
 		});
 	};
@@ -24,16 +28,17 @@ export default function HomePage() {
 		<Page>
 			<AppBar position="static">
 				<Toolbar>
+					<Typography variant="h6" component="div">
+						Test
+					</Typography>
 					<IconButton
 						size="large"
 						edge="start"
 						color="inherit"
-						aria-label="menu">
+						aria-label="menu"
+						onClick={() => navigate('/configuration')}>
 						<span className="material-symbols-outlined">menu</span>
 					</IconButton>
-					<Typography variant="h6" component="div">
-						Test
-					</Typography>
 				</Toolbar>
 			</AppBar>
 			<View>

@@ -3,8 +3,10 @@ import { IntlProvider } from 'react-intl';
 import enMessages from '@/../locales/compiled/en-US.json';
 
 export const LocalizationContext = React.createContext<{
+	locale: string;
 	setLocale: (locale: string) => void;
 }>({
+	locale: 'en-US',
 	setLocale: () => {},
 });
 
@@ -43,6 +45,7 @@ export function LocalizationProvider({ children }: React.PropsWithChildren) {
 			onError={() => {}}>
 			<LocalizationContext.Provider
 				value={{
+					locale,
 					setLocale: set,
 				}}>
 				{children}

@@ -9,6 +9,9 @@ import HomePage from './pages/HomePage';
 import ConfigurationPage from './pages/ConfigurationPage';
 import LanguagePage from './pages/LanguagePage/index.tsx';
 import VoicePage from './pages/VoicePage/index.tsx';
+import { ThemeProvider } from './components/Theme';
+import ThemePage from './pages/ThemePage/index.tsx';
+import { SettingsProvider } from './components/Settings/Provider.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -31,6 +34,10 @@ const router = createBrowserRouter([
 				path: '/configuration/voice',
 				element: <VoicePage />,
 			},
+			{
+				path: '/configuration/theme',
+				element: <ThemePage />,
+			},
 		],
 	},
 ]);
@@ -38,7 +45,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<LocalizationProvider>
-			<RouterProvider router={router} />
+			<SettingsProvider>
+				<ThemeProvider>
+					<RouterProvider router={router} />
+				</ThemeProvider>
+			</SettingsProvider>
 		</LocalizationProvider>
 	</React.StrictMode>
 );
