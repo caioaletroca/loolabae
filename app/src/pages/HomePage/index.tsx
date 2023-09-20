@@ -6,6 +6,7 @@ import ImageCapture from './ImageCapture';
 import useControl from '@/hooks/useControl';
 import { useNavigate } from 'react-router-dom';
 import { useLocalization } from '@/components/Localization';
+import Icon from '@/components/Icon';
 
 export default function HomePage() {
 	const { locale } = useLocalization();
@@ -28,16 +29,16 @@ export default function HomePage() {
 		<Page>
 			<AppBar position="static">
 				<Toolbar>
-					<Typography variant="h6" component="div">
-						Test
-					</Typography>
+					<div className="flex flex-row flex-1">
+						<img className="h-14 text-theme" src="/logo.svg" />
+					</div>
 					<IconButton
 						size="large"
 						edge="start"
 						color="inherit"
 						aria-label="menu"
 						onClick={() => navigate('/configuration')}>
-						<span className="material-symbols-outlined">menu</span>
+						<Icon>menu</Icon>
 					</IconButton>
 				</Toolbar>
 			</AppBar>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import '@/styles/index.scss';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout from './pages/root.tsx';
 import { LocalizationProvider } from './components/Localization';
