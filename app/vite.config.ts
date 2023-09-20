@@ -23,6 +23,36 @@ export default defineConfig({
 			devOptions: {
 				enabled: true,
 			},
+			manifest: {
+				name: 'Loolabae',
+				short_name: 'Loolabae',
+				description: 'Listen your stories',
+				theme_color: '#C44DF0',
+				icons: [
+					{
+						src: 'pwa-192x192.png',
+						sizes: '192x192',
+						type: 'image/png',
+					},
+					{
+						src: 'pwa-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+					},
+					{
+						src: 'pwa-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+						purpose: 'any',
+					},
+					{
+						src: 'pwa-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+						purpose: 'maskable',
+					},
+				],
+			},
 		}),
 	],
 });
