@@ -26,8 +26,11 @@ export default function useSpeechSynthesis({
 		window.speechSynthesis.speak(utterance);
 	};
 
+	const stop = () => window.speechSynthesis.cancel();
+
 	return {
 		speak,
+		stop,
 		options,
 	};
 }

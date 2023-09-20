@@ -4,8 +4,15 @@ import useSpeechSynthesis from './useSpeechSynthesis';
 import React from 'react';
 
 export default function useControl() {
+	const [reproducing, setReproducing] = React.useState(false);
 	const contexts = React.useRef<ContextWeighted[]>([]);
-	const { playSequence, playBackground, stop } = useSoundEffect();
+	const {
+		playSequence,
+		playBackground,
+		stop: stopSound,
+	} = useSoundEffect({
+		onEndSequence: () => setReproducing(false),
+	});
 
 	const _setContexts = (c: ContextWeighted[]) => {
 		contexts.current = c;
@@ -18,15 +25,17 @@ export default function useControl() {
 	const handleEndSpeech = React.useCallback(() => {
 		const effects = _filterByType('after', contexts.current);
 
-		stop();
+		stopSound();
 		playSequence(effects);
-	}, [contexts, stop, playSequence]);
+	}, [contexts, stopSound, playSequence]);
 
-	const { speak } = useSpeechSynthesis({
+	const { speak, stop: stopSpeech } = useSpeechSynthesis({
 		onEnd: handleEndSpeech,
 	});
 
 	const reproduce = (text: string, contexts: ContextWeighted[]) => {
+		setReproducing(true);
+
 		_setContexts(contexts);
 
 		const backgroundSounds = _filterByType('during', contexts);
@@ -35,7 +44,15 @@ export default function useControl() {
 		speak(text);
 	};
 
+	const cancel = () => {
+		stopSound();
+		stopSpeech();
+		setReproducing(false);
+	};
+
 	return {
+		reproducing,
 		reproduce,
+		cancel,
 	};
 }

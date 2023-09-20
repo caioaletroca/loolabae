@@ -5,6 +5,7 @@ type UseSoundEffectProps = {
 	baseUrl?: string;
 	volume?: number;
 	fade?: number;
+	onEndSequence?: () => void;
 };
 
 type SoundCache = {
@@ -15,6 +16,7 @@ export default function useSoundEffect({
 	baseUrl = '/sounds',
 	volume = 0.4,
 	fade = 500,
+	onEndSequence,
 }: UseSoundEffectProps = {}) {
 	const sounds = React.useRef<SoundCache>({});
 
@@ -63,6 +65,7 @@ export default function useSoundEffect({
 
 	const playSequence = (names: string[]) => {
 		if (names.length === 0) {
+			onEndSequence?.();
 			return;
 		}
 
@@ -75,6 +78,7 @@ export default function useSoundEffect({
 		const instances = Object.values(s);
 		for (let i = 0; i < instances.length; i++) {
 			if (i === instances.length - 1) {
+				instances[i].once('end', () => onEndSequence?.());
 				continue;
 			}
 

@@ -1,4 +1,4 @@
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, IconButton, Toolbar } from '@mui/material';
 import Page from '@/components/Page';
 import View from '@/components/Page/View';
 import { useAnalyze } from '@/api/analyze';
@@ -11,8 +11,8 @@ import Icon from '@/components/Icon';
 export default function HomePage() {
 	const { locale } = useLocalization();
 	const navigate = useNavigate();
-	const { reproduce } = useControl();
-	const { trigger } = useAnalyze({
+	const { reproduce, reproducing, cancel } = useControl();
+	const { trigger, isMutating } = useAnalyze({
 		onSuccess: ({ data }) => {
 			reproduce(data.text, data.context);
 		},
@@ -20,7 +20,7 @@ export default function HomePage() {
 
 	const handleChange = async (file: File) => {
 		trigger({
-			language: locale === 'en-US' ? 'eng' : 'pt',
+			language: locale === 'en-US' ? 'eng' : 'por',
 			image: file,
 		});
 	};
@@ -43,7 +43,12 @@ export default function HomePage() {
 				</Toolbar>
 			</AppBar>
 			<View>
-				<ImageCapture onChange={handleChange} />
+				<ImageCapture
+					loading={isMutating}
+					reproducing={reproducing}
+					onChange={handleChange}
+					onCancel={cancel}
+				/>
 			</View>
 		</Page>
 	);
