@@ -11,6 +11,9 @@
   "configuration.voiceButton": {
     "defaultMessage": "Voice Selection"
   },
+  "imageCapture.cancel": {
+    "defaultMessage": "Tap to cancel"
+  },
   "imageCapture.label": {
     "defaultMessage": "Tap to take a photo"
   },

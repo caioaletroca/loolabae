@@ -1,5 +1,6 @@
 import React from 'react';
 import { Howl } from 'howler';
+import { Context, ContextType, getFilteredContexts } from 'core';
 
 type UseSoundEffectProps = {
 	baseUrl?: string;
@@ -24,27 +25,28 @@ export default function useSoundEffect({
 		sounds.current = s;
 	};
 
-	const load = (name: string) => {
+	const load = (name: string, type?: ContextType) => {
 		return new Howl({
 			src: [`${baseUrl}/${name}.mp3`],
 			volume,
+			loop: type === 'during',
 		});
 	};
 
-	const loadSounds = (names: string[]): SoundCache => {
+	const loadSounds = (contexts: Context[]): SoundCache => {
 		const cache = { ...sounds.current };
 
-		return names.reduce((sum, name) => {
-			if (!(name in cache)) {
+		return contexts.reduce((sum, c) => {
+			if (!(c.name in cache)) {
 				return {
 					...sum,
-					[name]: load(name),
+					[c.name]: load(c.name, c.type as ContextType),
 				};
 			}
 
 			return {
 				...sum,
-				[name]: cache[name],
+				[c.name]: cache[c.name],
 			};
 		}, {});
 	};
@@ -54,7 +56,8 @@ export default function useSoundEffect({
 			return;
 		}
 
-		const s = loadSounds(names);
+		const s = loadSounds(getFilteredContexts(names));
+
 		Object.values(s).map((instance) => {
 			instance.play();
 			instance.fade(0, volume, fade);
@@ -69,7 +72,7 @@ export default function useSoundEffect({
 			return;
 		}
 
-		const s = loadSounds(names);
+		const s = loadSounds(getFilteredContexts(names));
 
 		const _next = (instance: Howl) => {
 			instance.play();

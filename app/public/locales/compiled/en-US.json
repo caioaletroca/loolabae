@@ -3,6 +3,7 @@
   "configuration.themeButton": "Theme",
   "configuration.title": "Configuration",
   "configuration.voiceButton": "Voice Selection",
+  "imageCapture.cancel": "Tap to cancel",
   "imageCapture.label": "Tap to take a photo",
   "language.title": "Language",
   "theme.darkButton": "Dark Mode",

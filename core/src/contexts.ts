@@ -32,6 +32,10 @@ const contexts = [
 		name: "forest",
 		type: "during"
 	},
+	{
+		name: "savannah",
+		type: "during"
+	},
 
 	// Effects Animals
 	{
