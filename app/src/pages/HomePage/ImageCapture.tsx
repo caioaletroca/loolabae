@@ -1,4 +1,5 @@
 import { ResponseError } from '@/api/analyze';
+import useSpeechSynthesis from '@/hooks/useSpeechSynthesis';
 import { CircularProgress, Typography } from '@mui/material';
 import React from 'react';
 import { useIntl } from 'react-intl';
@@ -39,13 +40,30 @@ type ImageCaptureErrorProps = {
 	onClick?: () => void;
 };
 
-export function ImageCaptureError({ onClick }: ImageCaptureErrorProps) {
+export function ImageCaptureError({ error, onClick }: ImageCaptureErrorProps) {
 	const intl = useIntl();
+	const { speak, stop } = useSpeechSynthesis();
+
+	React.useEffect(() => {
+		if (error.error.type === 'BadResultException') {
+			speak(
+				intl.formatMessage({
+					id: 'imageCapture.errorMessage',
+					defaultMessage: "It wasn't possible to process the image.",
+				})
+			);
+		}
+	}, [error, intl, speak]);
+
+	const handleClick = () => {
+		stop();
+		onClick?.();
+	};
 
 	return (
 		<div
 			className="flex flex-col flex-1 justify-center items-center"
-			onClick={onClick}>
+			onClick={handleClick}>
 			<Typography>
 				{intl.formatMessage({
 					id: 'imageCapture.errorMessage',

@@ -18,7 +18,7 @@ type RequestSWROptions<T = unknown> = {
 };
 
 type AnalyzeArgs = {
-	language: string;
+	locale: string;
 	image: File;
 };
 

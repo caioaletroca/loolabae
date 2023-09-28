@@ -1,2 +1,5 @@
 dist
 *.traineddata
+
+# Tests
+src/test/out/

@@ -7,10 +7,14 @@ export default function ApiResponse(res: Response) {
 		},
 
 		async error(status: number, type: string, message: string) {
-			return await res.status(status).json({ type, message });
+			return await res.status(status).json({ error: { type, message }});
 		},
 
-		async BadResultException(message: string = "Error: Not possible to analyze the image") {
+		async BadRequestException(message: string = "Invalid Request") {
+			return await this.error(400, "BadRequestException", message);
+		},
+
+		async BadResultException(message: string = "Not possible to analyze the image") {
 			return await this.error(400, "BadResultException", message);
 		}
 	}

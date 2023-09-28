@@ -20,7 +20,7 @@ export default function HomePage() {
 
 	const handleChange = async (file: File) => {
 		trigger({
-			language: locale === 'en-US' ? 'eng' : 'por',
+			locale,
 			image: file,
 		});
 	};
