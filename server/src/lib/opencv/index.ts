@@ -37,7 +37,7 @@ const opencv = {
 	},
 
 	async toFile(src: cv.Mat, path: string) {
-		// this.cache(src);
+		this.cache(src);
 		return sharp(Buffer.from(src.data), {
 			raw: {
 				width: src.cols,
@@ -49,7 +49,7 @@ const opencv = {
 	},
 
 	async toBuffer(src: cv.Mat) {
-		// this.cache(src);
+		this.cache(src);
 		return sharp(Buffer.from(src.data), {
 			raw: {
 					width: src.cols,
@@ -62,7 +62,7 @@ const opencv = {
 	},
 
 	async toBuffer64(src: cv.Mat) {
-		// this.cache(src);
+		this.cache(src);
 		const file = await this.toBuffer(src);
 		return Buffer.from(file.toString('base64'), 'base64')
 	},

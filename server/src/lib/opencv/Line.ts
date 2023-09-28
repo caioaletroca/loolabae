@@ -16,6 +16,16 @@ export class Line {
 		);
 	}
 
+	anglePositive() {
+		const angle = this.angle();
+		return angle < 0 ? angle + Math.PI : angle;
+	}
+
+	angleFirstQuadrant() {
+		const angle = this.anglePositive();
+		return angle > Math.PI / 2 ? angle - (Math.PI / 2) : angle;
+	}
+
 	length() {
 		return Math.sqrt(
 			Math.pow(this.end.x - this.start.x, 2) + Math.pow(this.end.y - this.start.y, 2)
