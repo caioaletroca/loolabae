@@ -1,3 +1,4 @@
+import { ResponseError } from '@/api/analyze';
 import { CircularProgress, Typography } from '@mui/material';
 import React from 'react';
 import { useIntl } from 'react-intl';
@@ -33,18 +34,50 @@ export function ImageCaptureLoading() {
 	);
 }
 
+type ImageCaptureErrorProps = {
+	error: ResponseError;
+	onClick?: () => void;
+};
+
+export function ImageCaptureError({ onClick }: ImageCaptureErrorProps) {
+	const intl = useIntl();
+
+	return (
+		<div
+			className="flex flex-col flex-1 justify-center items-center"
+			onClick={onClick}>
+			<Typography>
+				{intl.formatMessage({
+					id: 'imageCapture.errorMessage',
+					defaultMessage: `It wasn't possible to process the image.`,
+				})}
+			</Typography>
+			<Typography>
+				{intl.formatMessage({
+					id: 'imageCapture.errorLabel',
+					defaultMessage: 'Tap to clear',
+				})}
+			</Typography>
+		</div>
+	);
+}
+
 type ImageCaptureProps = {
 	loading?: boolean;
 	reproducing?: boolean;
+	error?: ResponseError;
 	onChange?: (file: File) => void;
 	onCancel?: () => void;
+	onClearError?: () => void;
 };
 
 export default function ImageCapture({
 	loading,
 	reproducing,
+	error,
 	onChange,
 	onCancel,
+	onClearError,
 }: ImageCaptureProps) {
 	const intl = useIntl();
 	const inputRef = React.useRef<HTMLInputElement>(null);
@@ -63,6 +96,10 @@ export default function ImageCapture({
 
 	if (reproducing) {
 		return <ImageCaptureReproducing onCancel={onCancel} />;
+	}
+
+	if (error) {
+		return <ImageCaptureError error={error} onClick={onClearError} />;
 	}
 
 	return (

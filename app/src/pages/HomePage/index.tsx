@@ -12,7 +12,7 @@ export default function HomePage() {
 	const { locale } = useLocalization();
 	const navigate = useNavigate();
 	const { reproduce, reproducing, cancel } = useControl();
-	const { trigger, isMutating } = useAnalyze({
+	const { error, trigger, reset, isMutating } = useAnalyze({
 		onSuccess: ({ data }) => {
 			reproduce(data.text, data.context);
 		},
@@ -46,8 +46,10 @@ export default function HomePage() {
 				<ImageCapture
 					loading={isMutating}
 					reproducing={reproducing}
+					error={error}
 					onChange={handleChange}
 					onCancel={cancel}
+					onClearError={reset}
 				/>
 			</View>
 		</Page>

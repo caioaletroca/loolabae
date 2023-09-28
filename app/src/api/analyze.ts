@@ -2,8 +2,15 @@ import useSWRMutation from 'swr/mutation';
 import { postFormDataFetcher } from '.';
 import { ContextWeighted } from 'core';
 
-type Response<T = unknown> = {
+export type Response<T = unknown> = {
 	data: T;
+};
+
+export type ResponseError = {
+	error: {
+		type: string;
+		message: string;
+	};
 };
 
 type RequestSWROptions<T = unknown> = {
@@ -25,7 +32,7 @@ export function useAnalyze(
 ) {
 	return useSWRMutation<
 		Response<AnalyzeResponse>,
-		unknown,
+		ResponseError,
 		string,
 		AnalyzeArgs
 	>('/api/analyze', postFormDataFetcher, options);
