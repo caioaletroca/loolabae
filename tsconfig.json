@@ -7,6 +7,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+
+		"paths": {
+			"core": ["./core/dist"]
+		}
   },
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+		{ "path": "core" },
+		{ "path": "./tsconfig.node.json" }
+	]
 }

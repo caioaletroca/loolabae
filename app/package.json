@@ -8,7 +8,7 @@
 		"dev:source": "vite --host",
 		"dev:locale": "npm run locale:extract && npm run locale:compile && copyfiles \"./locales/compiled/**\" ./public",
 		"build": "npm run build:assets && npm run build:source && npm run build:locale",
-		"build:source": "tsc && vite build",
+		"build:source": "tsc -b && vite build",
 		"build:locale": "npm run locale:extract && npm run locale:compile && copyfiles \"./locales/**\" ./dist",
 		"build:assets": "pwa-assets-generator",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --fix",

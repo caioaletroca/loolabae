@@ -15,6 +15,14 @@ export default defineConfig({
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
+	optimizeDeps: {
+		include: ['core'],
+	},
+	build: {
+		commonjsOptions: {
+			include: [/core/, /node_modules/],
+		},
+	},
 	plugins: [
 		mkcert(),
 		react(),

@@ -5,13 +5,11 @@
 		"esModuleInterop": true,
 		"noUnusedLocals": false,
     "noUnusedParameters": false,
+
+		"declaration": true,
     
 		"rootDir": "./src",
 		"outDir": "./dist",
-
-		"paths": {
-			"@/*": ["./src/*"]
-		}
 	},
-	"include": ["rollup.config.ts", "src"]
+	"include": ["src"]
 }
