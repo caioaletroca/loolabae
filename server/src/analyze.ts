@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { detect, recognize } from './tesseract/worker';
+import { recognize } from './ocr';
 import ApiResponse from './util/response';
 import { analyzeContext, fixOCR } from './services/openai';
 import { reduceFileSize, saveFile } from './util/file';
@@ -14,7 +14,7 @@ export default async function postAnalyze(req: Request, res: Response) {
 		}
 		// Reduce file size/weight for OCR Space API
 		const reducedFile = await reduceFileSize(1 * 1000 * 1000, req.file.buffer);
-		await saveFile(reducedFile, './test.webp');
+		// await saveFile(reducedFile, './test.webp');
 	
 		// Recognize text in the image
 		const text = await recognize(req.body.locale, reducedFile);
