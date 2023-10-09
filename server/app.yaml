@@ -3,5 +3,10 @@ service: server
 instance_class: F1
 entrypoint: node dist/server.js
 
+env_variables:
+  PROJECT_NAME: loolabae
+  OPENAI_MODEL: gpt-4
+  OPENAI_THRESHOLD: 0.75
+
 build_env_variables:
   GOOGLE_NODE_RUN_SCRIPTS: ''

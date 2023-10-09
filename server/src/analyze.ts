@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { recognize } from './ocr';
-import ApiResponse from './util/response';
-import { analyzeContext, fixOCR } from './services/openai';
-import { reduceFileSize, saveFile } from './util/file';
-import { BadRequestException, BaseException } from './util/exceptions';
+import { recognize } from '@/ocr';
+import ApiResponse from '@/util/response';
+import { analyzeContext, fixOCR } from '@/services/openai';
+import { reduceFileSize, saveFile } from '@/util/file';
+import { BadRequestException, BaseException } from '@/util/exceptions';
 
 const threshold = Number(process.env.OPEN_AI_THRESHOLD) || 0.75;
 

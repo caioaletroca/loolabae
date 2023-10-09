@@ -17,6 +17,8 @@ const router = Router();
 app.use(express.json());
 app.use(cors());
 
+app.set('trust proxy', true);
+
 router.get('/api', (_req: Request, res: Response) => {
 	return res.json({ message: 'Hello World!!!' });
 });
