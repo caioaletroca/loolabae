@@ -15,7 +15,7 @@ const input = [
 		locale: 'pt-BR',
 		text: `
 			acidente. Faça-me um favor, abra a gaveta de cima da escrivaninha. Vai encontrar um mapa ali.
-			Mikae fez o que ele pedia, depois abriu o mapa sobre a mesa baixa. Hedebyön, a linha, era uma massa de terra irregular de cerca de três quilômetros de comprimento e um meio em sua parte mais larga. Um bom trecho da ilha era constituído de floresta. As moradias se concentravam ao redor da ponte do porto de recreio; na outra extremidade da ilha havia uma fazenda, Östergar-
+			Mikae fez o que ele pedia, depois abriu o mapa sobre a mesa baixa. Hedebyön, a ilha, era uma massa de terra irregular de cerca de três quilômetros de comprimento e um meio em sua parte mais larga. Um bom trecho da ilha era constituído de floresta. As moradias se concentravam ao redor da ponte do porto de recreio; na outra extremidade da ilha havia uma fazenda, Östergar-
 			den, de onde o infeliz Aronsson iniciaria seu trajeto de carro.
 			- Lembre que ela não deixou a ilha - sublinhou Henrik Vanger. - Aqui em Hedebyön pode-se morrer num acidente como qualquer outro lugar do mundo. A pessoa ser atingida por um raio, embora naquele dia não tivesse desabado nenhuma tempestade. Pode ser pisoteada por um cavalo, cair num poço ou numa furna. Certamente há inúmeras maneiras de se sofrer um acidente aqui. Refleti sobre tudo isso.
 			Ele ergueu um terceiro dedo.
@@ -29,7 +29,7 @@ const input = [
 		locale: 'pt-BR',
 		text: `
 			acidente. Faça-me um favor, abra a gaveta de cima da escrivaninha. Vai encontrar um mapa ali.
-			Mikae fez o que ele pedia, depois abriu o mapa sobre a mesa baixa. Hedebyön, a linha, era uma massa de terra irregular de cerca de três quilômetros de comprimento e um meio em sua parte mais larga. Um bom trecho da ilha era constituído de floresta. As moradias se concentravam ao redor da ponte do porto de recreio; na outra extremidade da ilha havia uma fazenda, Östergar-
+			Mikae fez o que ele pedia, depois abriu o mapa sobre a mesa baixa. Hedebyön, a ilha, era uma massa de terra irregular de cerca de três quilômetros de comprimento e um meio em sua parte mais larga. Um bom trecho da ilha era constituído de floresta. As moradias se concentravam ao redor da ponte do porto de recreio; na outra extremidade da ilha havia uma fazenda, Östergar-
 			den, de onde o infeliz Aronsson iniciaria seu trajeto de carro.
 			- Lembre que ela não deixou a ilha - sublinhou Henrik Vanger. - Aqui em Hedebyön pode-se morrer num acidente como qualquer outro lugar do mundo. A pessoa ser atingida por um raio, embora naquele dia não tivesse desabado nenhuma tempestade. Pode ser pisoteada por um cavalo, cair num poço ou numa furna. Certamente há inúmeras maneiras de se sofrer um acidente aqui. Refleti sobre tudo isso.
 			Ele ergueu um terceiro dedo.
@@ -43,7 +43,7 @@ const input = [
 		locale: 'pt-BR',
 		text: `
 			acidente. Faça-me um favor, abra a gaveta de cima da escrivaninha. Vai encontrar um mapa ali.
-			Mikae fez o que ele pedia, depois abriu o mapa sobre a mesa baixa. Hedebyön, a linha, era uma massa de terra irregular de cerca de três quilômetros de comprimento e um meio em sua parte mais larga. Um bom trecho da ilha era constituído de floresta. As moradias se concentravam ao redor da ponte do porto de recreio; na outra extremidade da ilha havia uma fazenda, Östergar-
+			Mikae fez o que ele pedia, depois abriu o mapa sobre a mesa baixa. Hedebyön, a ilha, era uma massa de terra irregular de cerca de três quilômetros de comprimento e um meio em sua parte mais larga. Um bom trecho da ilha era constituído de floresta. As moradias se concentravam ao redor da ponte do porto de recreio; na outra extremidade da ilha havia uma fazenda, Östergar-
 			den, de onde o infeliz Aronsson iniciaria seu trajeto de carro.
 			- Lembre que ela não deixou a ilha - sublinhou Henrik Vanger. - Aqui em Hedebyön pode-se morrer num acidente como qualquer outro lugar do mundo. A pessoa ser atingida por um raio, embora naquele dia não tivesse desabado nenhuma tempestade. Pode ser pisoteada por um cavalo, cair num poço ou numa furna. Certamente há inúmeras maneiras de se sofrer um acidente aqui. Refleti sobre tudo isso.
 			Ele ergueu um terceiro dedo.
