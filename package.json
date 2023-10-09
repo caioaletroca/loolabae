@@ -10,9 +10,9 @@
 		"prepare": "husky install"
 	},
 	"workspaces": [
-		"app",
+		"core",
 		"server",
-		"core"
+		"app"
 	],
 	"devDependencies": {
 		"@types/node": "^20.5.7",

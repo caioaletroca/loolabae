@@ -96,4 +96,4 @@ export type ContextWeighted = Context & {
 	value: number
 }
 
-export default contexts;
+export { contexts };

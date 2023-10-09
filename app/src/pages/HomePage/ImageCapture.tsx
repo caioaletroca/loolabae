@@ -45,7 +45,7 @@ export function ImageCaptureError({ error, onClick }: ImageCaptureErrorProps) {
 	const { speak, stop } = useSpeechSynthesis();
 
 	React.useEffect(() => {
-		if (error.error.type === 'BadResultException') {
+		if (error?.error?.type === 'BadResultException') {
 			speak(
 				intl.formatMessage({
 					id: 'imageCapture.errorMessage',
