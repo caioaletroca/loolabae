@@ -1,5 +1,6 @@
 import { ocrSpace } from "ocr-space-api-wrapper";
 import { BadResultException, InternalServerException } from "../util/exceptions";
+import { config } from "@/lib/config";
 
 function convertLocale(locale: string = "en-US") {
 	return locale === "en-US" ? "eng" : "por";
@@ -11,7 +12,7 @@ export async function recognize(locale: string, file: Buffer) {
 	const response = await ocrSpace(
 		`data:image/webp;${fileString}`,
 		{
-			apiKey: process.env.OCR_SPACE_API_KEY,
+			apiKey: await config.get("OCR_SPACE_API_KEY"),
 			language: convertLocale(locale),
 			detectOrientation: true
 		}

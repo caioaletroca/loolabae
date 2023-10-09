@@ -1,9 +1,6 @@
+import { config } from '@/lib/config';
 import { ContextWeighted, contexts, getFilteredContexts } from 'core';
 import OpenAI from 'openai';
-
-export const openai = new OpenAI({
-	apiKey: process.env.OPENAI_API_KEY
-});
 
 function convertLocale(locale: string = "en-US") {
 	return locale === "en-US" ? "english" : "portuguese";
@@ -32,6 +29,10 @@ function parseResponse(response?: string | null) {
 }
 
 export async function analyzeContext(text: string): Promise<ContextWeighted[]> {
+	const openai = new OpenAI({
+		apiKey: await config.get('OPENAI_API_KEY')
+	});
+
 	const system = `
 		Given the options of places below:
 
@@ -62,6 +63,10 @@ export async function analyzeContext(text: string): Promise<ContextWeighted[]> {
 }
 
 export async function fixOCR(lang: string, text: string): Promise<string> {
+	const openai = new OpenAI({
+		apiKey: await config.get('OPENAI_API_KEY')
+	});
+	
 	const system = `
 		Given the text, analyze the context of the text and clean up any non-sense or non-textual words and characters and correct grammar and spelling of the following text.
 		Avoid using swearing or bad wording.
