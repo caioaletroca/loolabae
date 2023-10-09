@@ -67,6 +67,13 @@ const opencv = {
 		return Buffer.from(file.toString('base64'), 'base64')
 	},
 
+	invert(src: cv.Mat) {
+		const out = new cv.Mat();
+		cv.bitwise_not(src, out);
+		this.cache(out);
+		return out;
+	},
+
 	// Image Processing Methods
 	grayScale(src: cv.Mat, code: number) {
 		const out = new cv.Mat();

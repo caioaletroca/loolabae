@@ -14,6 +14,12 @@
   "imageCapture.cancel": {
     "defaultMessage": "Tap to cancel"
   },
+  "imageCapture.errorLabel": {
+    "defaultMessage": "Tap to clear"
+  },
+  "imageCapture.errorMessage": {
+    "defaultMessage": "It wasn't possible to process the image."
+  },
   "imageCapture.label": {
     "defaultMessage": "Tap to take a photo"
   },

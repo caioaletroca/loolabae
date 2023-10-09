@@ -23,7 +23,7 @@ export class Line {
 
 	angleFirstQuadrant() {
 		const angle = this.anglePositive();
-		return angle > Math.PI / 2 ? angle - (Math.PI / 2) : angle;
+		return angle > Math.PI / 2 ? Math.PI - angle : angle;
 	}
 
 	length() {

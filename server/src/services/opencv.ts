@@ -65,35 +65,42 @@ export async function unskew(file: Buffer) {
 	const src = await opencv.open(file);
 	const gray = opencv.grayScale(src, cv.COLOR_RGBA2GRAY);
 
+	// Check if the image is mostly white background
+	let inverted = gray;
+	if(cv.mean(gray) >= new cv.Scalar(127)) {
+		inverted = opencv.invert(gray);
+	}
+	
 	// Detect edges
-	const edges = opencv.cannyEdges(gray, 50, 150, 7);
+	const edges = opencv.cannyEdges(inverted, 50, 150, 7);
 
 	// Set the minimum line length to be at least 50% of the lower image size
 	const minimumLength = Math.round(Math.min(edges.cols, edges.rows) * 0.5);
 
 	// With the edges, get the 2 longests lines in the image
-	// The lines are potentially page borders, or aligned in the text
+	// The lines are potentially text aligns,
 	// In some way that they will provide a good angle of how much the page is tilted
-	const rawLines = opencv.houghLinesP(edges, 1, Math.PI / 180, 100, minimumLength, 10);
+	const rawLines = opencv.houghLinesP(edges, 1, Math.PI / 180, 100, minimumLength, 20);
 	const lines = opencv.lines.parse(rawLines);
 	
 	// Sort lines by length and filter out non horizontal or vertical lines.
 	// We expect the image to be into right orientation, lines closer to 45°
 	// might be artifacts so don't trust it.
-	// Long lines should be horizontal OR vertical, with preference on horizontal ones.
+	// Long lines should be horizontal, since the text should be in right orientation.
 	const [longLine1, longLine2] = 
-		opencv.lines.filterByVerticalAndHorizontal(
+		opencv.lines.filterByHorizontality(
 			opencv.lines.sortByLength(lines),
 			Math.PI / 8
 		).slice(0, 2);
-
-	if(longLine1) {
-		cv.line(gray, longLine1.start, longLine1.end, new cv.Scalar(0, 0, 0), 10);
-	}
-	if(longLine2) {
-		cv.line(gray, longLine2.start, longLine2.end, new cv.Scalar(0, 0, 0), 10);
-	}
-	await opencv.toFile(gray, './gray.png');
+	
+	// if(longLine1) {
+	// 	cv.line(gray, longLine1.start, longLine1.end, new cv.Scalar(0, 0, 0), 10);
+	// }
+	// if(longLine2) {
+	// 	cv.line(gray, longLine2.start, longLine2.end, new cv.Scalar(0, 0, 0), 10);
+	// }
+	await opencv.toFile(inverted, './inverted.png');
+	await opencv.toFile(gray, './edges.png');
 	let angle = 0;
 	// Exit if no line was found
 	if(lines.length === 0) {
@@ -108,7 +115,7 @@ export async function unskew(file: Buffer) {
 		angle = opencv.lines.averageAngle(longLine1, longLine2);
 	}
 
-	console.log(lines, longLine1, longLine2);
+	console.log(lines.length, longLine1, longLine2);
 
 	// Correct skew by rotating the image using the lines angle
 	const unskew = opencv.unskew(gray, angle, cv.INTER_LINEAR, cv.BORDER_CONSTANT);
