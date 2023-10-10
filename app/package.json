@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "npm run dev:locale && npm run dev:source",
-		"dev:source": "vite --host",
+		"dev:source": "vite --host --force",
 		"dev:locale": "npm run locale:extract && npm run locale:compile && copyfiles \"./locales/compiled/**\" ./public",
 		"build": "npm run build:assets && npm run build:source && npm run build:locale",
 		"build:source": "tsc -b && vite build",

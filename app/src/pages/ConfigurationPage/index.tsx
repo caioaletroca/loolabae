@@ -28,7 +28,12 @@ export default function ConfigurationPage() {
 			</Header>
 			<View>
 				<List>
-					<ListItemButton onClick={() => navigate('/configuration/theme')}>
+					<ListItemButton
+						aria-label={intl.formatMessage({
+							id: 'configuration.themeButton',
+							defaultMessage: 'Theme',
+						})}
+						onClick={() => navigate('/configuration/theme')}>
 						<ListItemIcon>
 							<Icon>dark_mode</Icon>
 						</ListItemIcon>
@@ -39,7 +44,12 @@ export default function ConfigurationPage() {
 							})}
 						/>
 					</ListItemButton>
-					<ListItemButton onClick={() => navigate('/configuration/language')}>
+					<ListItemButton
+						aria-label={intl.formatMessage({
+							id: 'configuration.languageButton',
+							defaultMessage: 'Language',
+						})}
+						onClick={() => navigate('/configuration/language')}>
 						<ListItemIcon>
 							<Icon>language</Icon>
 						</ListItemIcon>
@@ -50,7 +60,12 @@ export default function ConfigurationPage() {
 							})}
 						/>
 					</ListItemButton>
-					<ListItemButton onClick={() => navigate('/configuration/voice')}>
+					<ListItemButton
+						aria-label={intl.formatMessage({
+							id: 'configuration.voiceButton',
+							defaultMessage: 'Voice Selection',
+						})}
+						onClick={() => navigate('/configuration/voice')}>
 						<ListItemIcon>
 							<Icon>voice_selection</Icon>
 						</ListItemIcon>

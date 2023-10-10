@@ -8,6 +8,7 @@ export default function ApiResponse(res: Response) {
 		},
 
 		async sendError(error: BaseException) {
+			console.error(error.status, error.type, error.message, error.data);
 			return await res.status(error.status).json(error.toPayload());
 		},
 	}
