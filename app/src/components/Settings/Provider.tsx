@@ -24,6 +24,21 @@ export const SettingsContext = React.createContext<
 export function SettingsProvider({ children }: React.PropsWithChildren) {
 	const [settings, _setSettings] = React.useState<Settings>(defaultSettings);
 
+	const getFirstVoiceSystemLanguage = () => {
+		const language = navigator.language;
+		const voices = window.speechSynthesis.getVoices();
+
+		const filteredVoices = voices.filter((voice) =>
+			voice.lang.includes(language)
+		);
+
+		if (filteredVoices.length === 0) {
+			return defaultSettings.voice;
+		}
+
+		return filteredVoices[0];
+	};
+
 	const saveCache = (settings: Settings) => {
 		localStorage.setItem('theme', settings.theme);
 		localStorage.setItem('voice', settings.voice.name);
@@ -37,7 +52,9 @@ export function SettingsProvider({ children }: React.PropsWithChildren) {
 			theme:
 				(localStorage.getItem('theme') as SettingsTheme) ??
 				defaultSettings.theme,
-			voice: options.find((o) => o.name === voiceName) ?? defaultSettings.voice,
+			voice:
+				options.find((o) => o.name === voiceName) ??
+				getFirstVoiceSystemLanguage(),
 		};
 	};
 

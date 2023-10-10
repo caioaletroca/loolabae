@@ -14,9 +14,24 @@ export function LocalizationProvider({ children }: React.PropsWithChildren) {
 	const [locale, setLocale] = React.useState('en-US');
 	const [messages, setMessages] = React.useState(enMessages);
 
+	const getBrowserLanguage = () => {
+		const language = navigator.language;
+
+		if (language.includes('en')) {
+			return 'en-US';
+		}
+
+		if (language.includes('pt')) {
+			return 'pt-BR';
+		}
+
+		return 'en-US';
+	};
+
 	React.useEffect(() => {
 		(async () => {
-			const defaultLocale = localStorage.getItem('locale') ?? 'en-US';
+			const defaultLocale =
+				localStorage.getItem('locale') ?? getBrowserLanguage();
 			setLocale(defaultLocale);
 
 			await loadLanguage(defaultLocale);
