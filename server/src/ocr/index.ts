@@ -17,9 +17,9 @@ export async function recognize(locale: string, file: Buffer) {
 			detectOrientation: true
 		}
 	);
-
-	if(response.ErrorMessage) {
-		throw new InternalServerException(response.ErrorMessage, response.ErrorDetails);
+	
+	if(response.OCRExitCode !== 1) {
+		throw new InternalServerException(response.ErrorMessage.toString(), response.ErrorDetails);
 	}
 
 	if(!response.ParsedResults || response.ParsedResults.length === 0) {

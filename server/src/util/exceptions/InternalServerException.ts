@@ -1,5 +1,7 @@
 import { BaseException } from "./BaseException";
 
 export class InternalServerException extends BaseException {
-	message: string = "Internal Server Error"
+	constructor(message: string = "Internal Server Error", data?: unknown) {
+		super(message, data);
+	}
 }
