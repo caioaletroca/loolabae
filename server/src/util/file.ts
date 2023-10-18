@@ -8,19 +8,20 @@ export async function saveFile(file: Buffer, filePath: string) {
 }
 
 export async function reduceFileSize(targetSize: number, file: Buffer): Promise<Buffer> {
-	const decreaseStep = 10;
+	const decreaseStep = 20;
 	const image = await sharp(Buffer.from(file)).webp().toBuffer();
 	if(image.length < targetSize) {
 		return image;
 	}
 
 	const results = await Promise.all(
-		Array(10).fill(0)
-			.map((_, index) => 100 - decreaseStep * index)
+		Array(5).fill(0)
+			.map((_, index) => 100 - (decreaseStep * index))
 			.map(step => 
 				sharp(Buffer.from(file)).webp({
 					quality: step,
-					alphaQuality: 0
+					alphaQuality: 0,
+					lossless: true
 				}).toBuffer(),
 			)
 	);

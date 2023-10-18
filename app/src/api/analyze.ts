@@ -15,6 +15,7 @@ export type ResponseError = {
 
 type RequestSWROptions<T = unknown> = {
 	onSuccess?: (data: T) => void;
+	onError?: () => void;
 };
 
 type AnalyzeArgs = {
