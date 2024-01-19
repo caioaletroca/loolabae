@@ -26,7 +26,7 @@ export function csv<T extends object>(): CSV<T> {
 
 		async toFile(filePath: string) {
 			const text = this.toString();
-			return await fs.writeFile(filePath, text);
+			return await fs.writeFile(filePath, text, { flag: 'w+' });
 		},
 
 		toString() {

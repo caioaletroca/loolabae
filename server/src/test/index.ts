@@ -1,69 +1,100 @@
 import fs from 'node:fs/promises';
-import { rotate, unskew } from '../services/opencv';
-import input from './input';
+import inputs from './input';
 import path from 'path';
-import { saveFile } from '../util/file';
-import cv from "@techstark/opencv-js";
-import { detect } from '../tesseract/worker';
-import opencv from '../lib/opencv';
+import { reduceFileSize } from '../util/file';
+import { csv } from '../util/csv';
+import { stringSimilarity } from "string-similarity-js";
+import { analyzeContext, fixOCR } from '../services/openai';
+import { recognize } from '../ocr';
+import perfy from 'perfy';
 
 const basePath = "./src/test";
+const threshold = Number(process.env.OPEN_AI_THRESHOLD) || 0.75;
 
-function sleep(ms: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
+const sanitizeString = (text: string) => {
+	return text.replace(/\n/g, ' ').replace(/"/g,'\'').replace(/\x09/g,'');
+}
+
+const csvFileName = () => {
+	return (new Date()).toISOString().replace(/:/g, "-");
 }
 
 (async function main() {
 	try {
-		await sleep(200);
-
 		console.log("Starting process");
+		const csvFile = csv<{
+			name: string;
+			fileRate: number; 
+			fixedRate: number;
+			correctContextsString: string;
+			ocrTime: number;
+			fixOcrTime: number;
+			contextTime: number;
+			contextPercentage: number;
+			text?: string;
+			fixedText?: string;
+		}>();
+		csvFile.setColumns([
+			"name",
+			"fileRate",
+			"fixedRate",
+			"correctContextsString",
+			"ocrTime",
+			"fixOcrTime",
+			"contextTime",
+			"contextPercentage",
+			"text",
+			"fixedText"
+		]);
 
-		input.forEach(async input => {
-			const inputPath = path.resolve(basePath, 'data', `${input.name}.png`);
-			const outputFolder = path.resolve(basePath, 'out', input.name);
+		for (const input of inputs) {
+				console.log(`Started: ${input.name}`);
 
-			// Open file
-			const file = await fs.readFile(inputPath);
+				const inputPath = path.resolve(basePath, 'data', `${input.name}.${input.extension}`);
+				
+				// Open files
+				const file = await fs.readFile(inputPath);
+				const originalText = sanitizeString(input.text);
 
-			// Create output folder
-			await fs.mkdir(path.parse(outputFolder).dir, { recursive: true });
+				const reducedFile = await reduceFileSize(1 * 1024 * 1024, file);
+				console.log(reducedFile.length);
+				
+				perfy.start('ocr' + input.name);
+				const text = sanitizeString(await recognize(input.locale, reducedFile));
+				const ocrTime = perfy.end('ocr' + input.name).time;
+				const fileRate = stringSimilarity(originalText, text);
 
-			// Convert image into OpenCV
-			const src = await opencv.open(file);
+				perfy.start('fixOcr' + input.name);
+				const fixedText = sanitizeString(await fixOCR(input.locale, text));
+				const fixOcrTime = perfy.end('fixOcr' + input.name).time;
+				const fixedRate = stringSimilarity(originalText, fixedText);
 
-			// Multiple steps of image processing
-			const gray = opencv.grayScale(src, cv.COLOR_RGBA2GRAY);
-			await opencv.toFile(gray, path.resolve(outputFolder, './1-gray.png'));
-			const blur = opencv.gaussianBlur(gray, { width: 5, height: 5 }, 2);
-			await opencv.toFile(blur, path.resolve(outputFolder, './2-blur.png'));
-			const binary = opencv.adaptiveThreshold(blur, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 2);
-			await opencv.toFile(binary, path.resolve(outputFolder, './3-binary.png'));
-			const abs = opencv.convertScaleAbs(binary, 1.95, 50);
-			await opencv.toFile(abs, path.resolve(outputFolder, './4-abs.png'));
+				perfy.start('context' + input.name);
+				const contexts = await analyzeContext(fixedText);
+				const contextTime = perfy.end('context' + input.name).time;
+				const filteredContexts = contexts.filter(context => context.value >= threshold);
+				const correctContexts = filteredContexts.filter(c => input.contexts.includes(c.name));
+				const correctContextsString = correctContexts.map(c => c.name).join(', ');
+				const contextPercentage = 
+					filteredContexts.length !== 0 && input.contexts?.length === 0 ?
+					0 :
+					filteredContexts.length === 0 && input.contexts?.length === 0 ?
+					100 :
+					filteredContexts.length / input.contexts?.length * 100;
 
-			// Convert result back into buffer
-			const processedImage = await opencv.toBuffer(abs);
+				console.log(input.name, input.contexts, filteredContexts, correctContexts);
 
-			// Clear memory
-			opencv.clear();
+				csvFile.push({ name: input.name, fileRate, fixedRate, ocrTime, fixOcrTime, contextTime, contextPercentage, correctContextsString,
+					text: `"${text}"`,
+					fixedText: `"${fixedText}"`
+				});
 
-			// Fix rotation
-			const { data: { orientation_degrees, orientation_confidence } } = await detect(processedImage);
+				console.log(`Finished: ${input.name}`);
+		}
 
-			let rotatedImage = processedImage;
-			if(orientation_confidence! > 10) {
-				rotatedImage = await rotate(processedImage, orientation_degrees!);
-				await saveFile(rotatedImage, path.resolve(outputFolder, '5-rotated.png'));
-			}
+		await csvFile.toFile(path.resolve(basePath, 'out', `${csvFileName()}.csv`));
 
-			const unskewedImage = await unskew(rotatedImage);
-			await saveFile(unskewedImage, path.resolve(outputFolder, '6-unskew.png'));
-
-			console.log(`Finished: ${input.name}`);
-		});
+		console.log("Process finished");
 	}
 	catch(e) {
 		console.error(e);

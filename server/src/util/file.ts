@@ -8,29 +8,26 @@ export async function saveFile(file: Buffer, filePath: string) {
 }
 
 export async function reduceFileSize(targetSize: number, file: Buffer): Promise<Buffer> {
-	const decreaseStep = 20;
-	const image = await sharp(Buffer.from(file)).webp().toBuffer();
-	if(image.length < targetSize) {
+	const imageObject = await sharp(Buffer.from(file)).webp();
+	const metadata = await imageObject.metadata();
+	const image = await imageObject.toBuffer();
+
+	if(!metadata.size) {
 		return image;
 	}
 
-	const results = await Promise.all(
-		Array(5).fill(0)
-			.map((_, index) => 100 - (decreaseStep * index))
-			.map(step => 
-				sharp(Buffer.from(file)).webp({
-					quality: step,
-					alphaQuality: 0,
-					lossless: true
-				}).toBuffer(),
-			)
-	);
-
-	for(const img of results) {
-		if(img.length < targetSize) {
-			return img;
-		}
+	const sourceSize = metadata.size;
+	let width = metadata.width!;
+	let height = metadata.height!;
+	let currentImage = image;
+	let currentSize = sourceSize;
+	let remainingTrials = 20;
+	while(remainingTrials-- && (currentSize > targetSize || currentSize > sourceSize)) {
+		width = Math.round(width * 0.95);
+    height = Math.round(height * 0.95);
+		currentImage = await sharp(Buffer.from(file)).webp().resize(width, height).toBuffer();
+		currentSize = currentImage.length;
 	}
 
-	return results.pop()!;
+	return currentImage;
 }
