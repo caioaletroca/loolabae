@@ -10,7 +10,7 @@ export async function recognize(locale: string, file: Buffer) {
 	const fileString = file.toString('base64');
 
 	const response = await ocrSpace(
-		`data:image/webp;${fileString}`,
+		`data:image/webp;base64,${fileString}`,
 		{
 			apiKey: await config.get("OCR_SPACE_API_KEY"),
 			language: convertLocale(locale),
