@@ -13,21 +13,19 @@ export default async function postAnalyze(req: Request, res: Response) {
 		}
 		
 		// Recognize text in the image
-		console.time('text');
 		const text = await recognize(req.body.locale, req.file.buffer);
-		console.timeEnd('text');
 		
 		// Fix any OCR mistakes using GPT4
-		console.time('fix');
 		const fixedText = await fixOCR(req.body.locale, text);
-		console.timeEnd('fix');
 	
-		console.time('context');
 		const contexts = await analyzeContext(fixedText);
-		console.timeEnd('context');
 		
 		const filteredContexts = contexts.filter(context => context.value >= threshold);
 		
+		console.debug('Original', text);
+		console.debug('Text', fixedText);
+		console.debug('Contexts', filteredContexts);
+
 		return ApiResponse(res).send({
 			text: fixedText,
 			context: filteredContexts

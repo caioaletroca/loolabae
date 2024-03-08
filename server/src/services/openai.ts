@@ -69,6 +69,7 @@ export async function fixOCR(lang: string, text: string): Promise<string> {
 	
 	const system = `
 		Given the text, analyze the context of the text and clean up any non-sense or non-textual words and characters and correct grammar and spelling of the following text.
+		If the text is correct, don't change anything, just respond with the text back
 		Avoid using swearing or bad wording.
 		The text is in ${convertLocale(lang)}.
 	`;

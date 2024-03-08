@@ -57,7 +57,6 @@ const csvFileName = () => {
 				const originalText = sanitizeString(input.text);
 
 				const reducedFile = await reduceFileSize(1 * 1024 * 1024, file);
-				console.log(reducedFile.length);
 				
 				perfy.start('ocr' + input.name);
 				const text = sanitizeString(await recognize(input.locale, reducedFile));
@@ -81,8 +80,6 @@ const csvFileName = () => {
 					filteredContexts.length === 0 && input.contexts?.length === 0 ?
 					100 :
 					filteredContexts.length / input.contexts?.length * 100;
-
-				console.log(input.name, input.contexts, filteredContexts, correctContexts);
 
 				csvFile.push({ name: input.name, fileRate, fixedRate, ocrTime, fixOcrTime, contextTime, contextPercentage, correctContextsString,
 					text: `"${text}"`,

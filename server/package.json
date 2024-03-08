@@ -8,7 +8,7 @@
     "start": "npx dotenv -e .env -- node dist/server.js",
     "lint": "eslint . --ext ts --report-unused-disable-directives --fix",
     "test": "npx dotenv -e .env -- ts-node -r tsconfig-paths/register ./src/test/index.ts",
-    "test:string": "npx dotenv -e .env -- ts-node -r tsconfig-paths/register ./src/test/string.ts"
+    "test:general": "npx dotenv -e .env -- ts-node -r tsconfig-paths/register ./src/test/general-test.ts"
   },
   "author": "",
   "license": "ISC",

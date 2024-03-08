@@ -44,6 +44,10 @@ const contexts = [
 		name: "sea",
 		type: "during"
 	},
+	{
+		name: "fire",
+		type: "during"
+	},
 
 	// Effects Animals
 	{
@@ -82,6 +86,18 @@ const contexts = [
 		name: "lion",
 		type: "after"
 	},
+	{
+		name: "monkey",
+		type: "after"
+	},
+	{
+		name: "elephant",
+		type: "after"
+	},
+	{
+		name: "eagle",
+		type: "after"
+	},
 
 	// Effects Misc
 	{
@@ -90,6 +106,10 @@ const contexts = [
 	},
 	{
 		name: "church bell",
+		type: "after"
+	},
+	{
+		name: "thunder",
 		type: "after"
 	},
 ]
